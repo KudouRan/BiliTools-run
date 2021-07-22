@@ -16,5 +16,5 @@ jobs:
            --env TENCENT_SECRET_ID="${{ secrets.TENCENT_SECRET_ID }}" \
            --env TENCENT_SECRET_KEY="${{ secrets.TENCENT_SECRET_KEY }}" \
            -i --rm  \
-           catlair/bilitools:latest
+           catlair/bilitools:latest \
            node tools/bootstrap.js --scf
