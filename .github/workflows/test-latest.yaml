@@ -1,0 +1,27 @@
+name: gh-release
+
+on:
+  workflow_dispatch: # 手动触发
+
+jobs:
+  build-docker:
+    runs-on: ubuntu-latest
+    environment: Build
+    steps:
+      - name: set Docker tag
+        run: |
+          echo DOCKER_TAG1='refs/tags/v0.0.3-rc' | sed -e "s/refs\/tags\/v//g" >> $GITHUB_ENV
+          echo DOCKER_TAG2=${{ contains(env.DOCKER_TAG1, 'rc') && 'test' || 'latest' }} >> $GITHUB_ENV
+          echo ${{ contains(env.DOCKER_TAG1, 'rc') }}
+      - name: Build and Push
+        run: |
+          echo ${{ env.DOCKER_TAG1 }}
+          echo ${{ env.DOCKER_TAG2 }}
+  release:
+    needs: build-docker
+    runs-on: ubuntu-latest
+    environment: Build
+    steps:
+      - name: Copy dist
+        run: |
+          echo ${{ env.DOCKER_TAG2 == 'test' }}
