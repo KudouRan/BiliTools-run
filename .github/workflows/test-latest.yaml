@@ -7,17 +7,25 @@ jobs:
   build-docker:
     runs-on: ubuntu-latest
     environment: Build
+    outputs:
+      DOCKER_TAG2: ${{ steps.tag2.outputs.DOCKER_TAG2 }}
     steps:
       - name: set Docker tag
         run: |
           echo DOCKER_TAG1='refs/tags/v0.0.3-rc' | sed -e "s/refs\/tags\/v//g" >> $GITHUB_ENV
+          
+      - name: set Docker latest tag
+        id: tag2
+        run: |
           echo DOCKER_TAG2=${{ contains(env.DOCKER_TAG1, 'rc') && 'test' || 'latest' }} >> $GITHUB_ENV
-          echo ${{ env.DOCKER_TAG1 }}
-          echo ${{ contains(env.DOCKER_TAG1, 'rc') }}
+          echo "::set-output name=DOCKER_TAG2::${{ contains(env.DOCKER_TAG1, 'rc') }}"
+          
       - name: Build and Push
         run: |
           echo ${{ env.DOCKER_TAG1 }}
           echo ${{ env.DOCKER_TAG2 }}
+          echo ${{ needs.build-docker.outputs.DOCKER_TAG2 }}
+          
   release:
     needs: build-docker
     runs-on: ubuntu-latest
@@ -25,4 +33,5 @@ jobs:
     steps:
       - name: Copy dist
         run: |
-          echo ${{ env.DOCKER_TAG2 == 'test' }}
+          echo ${{ env.DOCKER_TAG2 }}
+          echo ${{ needs.build-docker.outputs.DOCKER_TAG2 }}
