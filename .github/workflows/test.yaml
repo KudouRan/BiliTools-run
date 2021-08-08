@@ -17,4 +17,4 @@ jobs:
            --env TENCENT_SECRET_KEY="${{ secrets.TENCENT_SECRET_KEY }}" \
            --env RUN_SCF_ALL=y \
            -i --rm  \
-           catlair/bilitools-deploy:0.3.11-rc0
+           catlair/bilitools-deploy
