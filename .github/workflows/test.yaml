@@ -17,5 +17,5 @@ jobs:
             TENCENT_SECRET_ID="${{ secrets.TENCENT_SECRET_ID }}"
             TENCENT_SECRET_KEY="${{ secrets.TENCENT_SECRET_KEY }}"
             RUN_SCF_ALL=y
-         tty: true
+          tty: true
           
