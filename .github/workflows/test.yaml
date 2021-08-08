@@ -10,12 +10,12 @@ jobs:
     steps:
       - name: Run Deploy
         timeout-minutes: ${{secrets.TIMEOUT_MINUTES || 15}} # 超时时间(分钟)
-        run: |
-          docker pull catlair/bilitools-deploy:test
-          sudo docker run \
-           --env BILI_CONFIG="${{ secrets.BILI_CONFIG }}" \
-           --env TENCENT_SECRET_ID="${{ secrets.TENCENT_SECRET_ID }}" \
-           --env TENCENT_SECRET_KEY="${{ secrets.TENCENT_SECRET_KEY }}" \
-            --env RUN_SCF_ALL=y \
-           -i --rm  \
-           catlair/bilitools-deploy:test
+        uses: docker://catlair/bilitools-deploy:test
+        with: 
+          env: 
+            BILI_CONFIG="${{ secrets.BILI_CONFIG }}"
+            TENCENT_SECRET_ID="${{ secrets.TENCENT_SECRET_ID }}"
+            TENCENT_SECRET_KEY="${{ secrets.TENCENT_SECRET_KEY }}"
+            RUN_SCF_ALL=y
+         tty: true
+          
