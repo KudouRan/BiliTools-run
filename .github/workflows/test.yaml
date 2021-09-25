@@ -18,4 +18,4 @@ jobs:
            --env SCF_MEMORY_SIZE=256 \
            --env RUN_SCF_ALL=y \
            -i --rm  \
-           catlair/bilitools-deploy:test
+           catlair/bilitools-deploy:0.3.12-rc0
