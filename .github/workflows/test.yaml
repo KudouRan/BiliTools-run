@@ -9,7 +9,7 @@ jobs:
     environment: Production
     steps:
       - name: Run Deploy
-        timeout-minutes: ${{secrets.TIMEOUT_MINUTES || 15}} # 超时时间(分钟)
+        timeout-minutes: ${{ secrets.TIMEOUT_MINUTES || 15 }} # 超时时间(分钟)
         run: |
           sudo docker run \
            --env BILI_CONFIG="${{ secrets.BILI_CONFIG }}" \
@@ -18,4 +18,4 @@ jobs:
            --env SCF_MEMORY_SIZE=256 \
            --env RUN_SCF_ALL=y \
            -i --rm  \
-           catlair/bilitools-deploy:0.3.12-rc0
+           catlair/bilitools-deploy:test
