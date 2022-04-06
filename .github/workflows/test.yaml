@@ -15,7 +15,7 @@ jobs:
            --env BILI_CONFIG="${{ secrets.BILI_CONFIG }}" \
            --env TENCENT_SECRET_ID="${{ secrets.TENCENT_SECRET_ID }}" \
            --env TENCENT_SECRET_KEY="${{ secrets.TENCENT_SECRET_KEY }}" \
-           --env SCF_MEMORY_SIZE=256 \
+           --env SCF_MEMORY_SIZE=128 \
            --env RUN_SCF_ALL=y \
            -i --rm  \
            catlair/bilitools-deploy:test
